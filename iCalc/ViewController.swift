@@ -24,13 +24,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var answerDisplay: UILabel!
     
     var computeDisplay = [String]()
-    
-    //CAN I MAKE THIS BETTER WITH A CLASS?!?!?
+    var funcArr = [String]()
+    var numArr = [Int]()
     
     @IBAction func press9(_ sender: UIButton) {
-        //if first number before or after an operator
         computeDisplay.append("9")
-        //else concatenate number into current item
         displayCalc()
     }
 
@@ -79,63 +77,113 @@ class ViewController: UIViewController {
         displayCalc()
     }
     
-    //CAN I MAKE THIS BETTER WITH A CLASS?!?!?
-    
     @IBAction func pressPlus(_ sender: UIButton) {
-        //if last item in array is -, x, or ÷
-            //replace with +
-        //else
-        computeDisplay.append(" + ")
-        displayCalc()
+        if computeDisplay.count <= 0 {
+        } else {
+            if computeDisplay.last == " + " || computeDisplay.last == " - " || computeDisplay.last == " x " || computeDisplay.last == " ÷ " {
+                computeDisplay[computeDisplay.endIndex - 1] = " + "
+                displayCalc()
+            } else {
+                computeDisplay.append(" + ")
+                displayCalc()
+            }
+        }
+        funcArr.append("+")
     }
     
     @IBAction func pressMinus(_ sender: UIButton) {
-        //if last item in array is +, x, or ÷
-            //replace with -
-        //else
-        computeDisplay.append(" - ")
-        displayCalc()
+        if computeDisplay.count <= 0 {
+        } else {
+            if computeDisplay.last == " + " || computeDisplay.last == " - " || computeDisplay.last == " x " || computeDisplay.last == " ÷ " {
+                computeDisplay[computeDisplay.endIndex - 1] = " - "
+                displayCalc()
+            } else {
+                computeDisplay.append(" - ")
+                displayCalc()
+            }
+        }
+        funcArr.append("-")
     }
     
     @IBAction func pressMultiply(_ sender: UIButton) {
-        //if last item in array is +, -, or ÷
-            //replace with x
-        //else
-        computeDisplay.append(" x ")
-        displayCalc()
+        if computeDisplay.count <= 0 {
+        } else {
+            if computeDisplay.last == " + " || computeDisplay.last == " - " || computeDisplay.last == " x " || computeDisplay.last == " ÷ " {
+                computeDisplay[computeDisplay.endIndex - 1] = " x "
+                displayCalc()
+            } else {
+                computeDisplay.append(" x ")
+                displayCalc()
+            }
+        }
+        funcArr.append("x")
     }
     
     @IBAction func pressDivide(_ sender: UIButton) {
-        //if last item in array is +, -, or x
-            //replace with ÷
-        //else
-        computeDisplay.append(" ÷ ")
-        displayCalc()
+        if computeDisplay.count <= 0 {
+        } else {
+            if computeDisplay.last == " + " || computeDisplay.last == " - " || computeDisplay.last == " x " || computeDisplay.last == " ÷ " {
+                computeDisplay[computeDisplay.endIndex - 1] = " ÷ "
+                displayCalc()
+            } else {
+                computeDisplay.append(" ÷ ")
+                displayCalc()
+            }
+        }
+        funcArr.append("÷")
     }
     
     @IBAction func pressEqual(_ sender: UIButton) {
-        //break apart string
-        var answer = 0.0
-        //calculate formula
-        answerDisplay.text = "\(answer)"      //display answer
+        //split string
+        let tempString = getString()
+        var calcArr = tempString.components(separatedBy: " ")
+
+        for x in 0..<calcArr.count {        //remove operators from array
+            if calcArr[x] == "+" || calcArr[x] == "-" || calcArr[x] == "x" || calcArr[x] == "÷" {
+            } else {
+                var convertToNum = Int(calcArr[x])      //converts string to int
+                numArr.append(convertToNum!)
+            }
+        }       //done
+        
+        for x in 0..<funcArr.count {        //temporary printer for calcArr
+            print(funcArr[x])
+        }
+        
+        for x in 0..<numArr.count {
+            print(numArr[x])
+        }
+        
+        //Calculate formula: order of operations: MDAS
+        
+        
+        
+        answerDisplay.text = "\(tempString)"      //display answer
         
     }
     
-    @IBAction func pressClear(_ sender: UIButton) {
-        computeDisplay.removeAll()      //removes all variables from computeDisplay array
+    @IBAction func pressClear(_ sender: UIButton) { //handles clearing
+        computeDisplay.removeAll()      //removes all variables from compute Display
+        funcArr.removeAll()             //removes all variables from funcArr
+        numArr.removeAll()            //removes all variables from numArr
         formulaDisplay.text = ""        //sets formula label to nil
         answerDisplay.text = ""         //sets answer label to nil
-    }
-    
+    }   //done
+
     func displayCalc() {                                    //handles display of formula in label
         var display = computeDisplay[0]
-        
         for x in 1..<computeDisplay.count {
             display = display + computeDisplay[x]
         }
         formulaDisplay.text = display
-    }
+    }       //done
     
-    
+    func getString() -> String {
+        var display = computeDisplay[0]
+        for x in 1..<computeDisplay.count {
+            display = display + computeDisplay[x]
+        }
+        return display
+    }       //done
 }
 

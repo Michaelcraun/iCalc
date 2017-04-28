@@ -47,6 +47,7 @@
 		9B2B5B421EB109790069ACF5 /* iCalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2B5B461EB109790069ACF5 /* iCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCalcUITests.swift; sourceTree = "<group>"; };
 		9B2B5B481EB109790069ACF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BE383EA1EB2CE150000D827 /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Test.playground; path = ../../../Test.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 			children = (
 				9B2B5B261EB109780069ACF5 /* AppDelegate.swift */,
 				9B2B5B281EB109780069ACF5 /* ViewController.swift */,
+				9BE383EA1EB2CE150000D827 /* Test.playground */,
 				9B2B5B2A1EB109780069ACF5 /* Main.storyboard */,
 				9B2B5B2D1EB109780069ACF5 /* Assets.xcassets */,
 				9B2B5B2F1EB109780069ACF5 /* LaunchScreen.storyboard */,
@@ -507,6 +509,7 @@
 				9B2B5B4D1EB109790069ACF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B2B5B4E1EB109790069ACF5 /* Build configuration list for PBXNativeTarget "iCalcTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +518,7 @@
 				9B2B5B501EB109790069ACF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B2B5B511EB109790069ACF5 /* Build configuration list for PBXNativeTarget "iCalcUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +527,7 @@
 				9B2B5B531EB109790069ACF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
