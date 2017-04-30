@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     
     var computeDisplay = [String]()
     var funcArr = [String]()
-    var numArr = [Int]()
+    var numArr = [Double]()
     
     @IBAction func press9(_ sender: UIButton) {
         computeDisplay.append("9")
@@ -134,32 +134,102 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressEqual(_ sender: UIButton) {
-        //split string
         let tempString = getString()
-        var calcArr = tempString.components(separatedBy: " ")
+        var calcArr = tempString.components(separatedBy: " ")   //split string
 
         for x in 0..<calcArr.count {        //remove operators from array
             if calcArr[x] == "+" || calcArr[x] == "-" || calcArr[x] == "x" || calcArr[x] == "÷" {
             } else {
-                var convertToNum = Int(calcArr[x])      //converts string to int
-                numArr.append(convertToNum!)
+                let convertToNum = Int(calcArr[x])      //converts string to int
+                numArr.append(Double(convertToNum!))
             }
         }       //done
         
-        for x in 0..<funcArr.count {        //temporary printer for calcArr
-            print(funcArr[x])
-        }
-        
-        for x in 0..<numArr.count {
-            print(numArr[x])
-        }
-        
         //Calculate formula: order of operations: MDAS
         
+        for x in 0..<funcArr.count {    //handles multiplication
+            if funcArr[x] == "x" {
+                var tempAnswer = numArr[x].multiplied(by: numArr[x + 1])
+                numArr.append(tempAnswer)
+                numArr.remove(at: x)
+                numArr.remove(at: x)
+                funcArr.remove(at: x)
+            } else if funcArr[x] == "÷" {
+                var tempAnswer = numArr[x].divided(by: numArr[x + 1])
+                numArr.append(tempAnswer)
+                numArr.remove(at: x)
+                numArr.remove(at: x)
+                funcArr.remove(at: x)
+            }
+//            else {
+//                var tempAnswer = numArr[x - 1].multiplied(by: numArr[x + 1])
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x - 1)
+//                numArr.remove(at: x - 1)
+//                funcArr.remove(at: x)
+//            }
+        }   //handles multiplication.
         
+//        for x in 0..<funcArr.count {    //handles multiplication
+//            if funcArr[x] == "÷" && x == 0{
+//                var tempAnswer = numArr[x].divided(by: numArr[x + 1])
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x)
+//                numArr.remove(at: x)
+//                funcArr.remove(at: x)
+//                print(numArr)
+//            } else {
+//                var tempAnswer = numArr[x - 1].divided(by: numArr[x + 1])
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x - 1)
+//                numArr.remove(at: x - 1)
+//                funcArr.remove(at: x)
+//            }
+//        }   //handles division.
+//        
+//        for x in 0..<funcArr.count {    //handles multiplication
+//            if funcArr[x] == "+" && x == 0{
+//                var tempAnswer = numArr[x] + numArr[x + 1]
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x)
+//                numArr.remove(at: x)
+//                funcArr.remove(at: x)
+//                print(numArr)
+//            } else {
+//                var tempAnswer = numArr[x - 1] + numArr[x + 1]
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x - 1)
+//                numArr.remove(at: x - 1)
+//                funcArr.remove(at: x)
+//            }
+//        }   //handles addition.
+//        
+//        for x in 0..<funcArr.count {    //handles multiplication
+//            if funcArr[x] == "-" && x == 0{
+//                var tempAnswer = numArr[x] - numArr[x + 1]
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x)
+//                numArr.remove(at: x)
+//                funcArr.remove(at: x)
+//                print(numArr)
+//            } else {
+//                var tempAnswer = numArr[x - 1] - numArr[x + 1]
+//                numArr.append(tempAnswer)
+//                numArr.remove(at: x - 1)
+//                numArr.remove(at: x - 1)
+//                funcArr.remove(at: x)
+//            }
+//        }   //handles subtraction.
         
-        answerDisplay.text = "\(tempString)"      //display answer
-        
+        if numArr.count == 1 {
+            var answerString = "\(numArr)"
+            answerString.characters.removeFirst()
+            answerString.characters.removeLast()
+            answerDisplay.text = "\(answerString)"      //display answer
+        }
+        funcArr.removeAll()
+        numArr.removeAll()
+        computeDisplay.removeAll()
     }
     
     @IBAction func pressClear(_ sender: UIButton) { //handles clearing
@@ -171,6 +241,9 @@ class ViewController: UIViewController {
     }   //done
 
     func displayCalc() {                                    //handles display of formula in label
+        if computeDisplay.count == 1 {
+            formulaDisplay.text = ""
+        }
         var display = computeDisplay[0]
         for x in 1..<computeDisplay.count {
             display = display + computeDisplay[x]
@@ -186,4 +259,3 @@ class ViewController: UIViewController {
         return display
     }       //done
 }
-
